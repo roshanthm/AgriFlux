@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  
+  --color-bg-primary: #050806;
+  --color-bg-secondary: #0A120D;
+  --color-emerald-accent: #10B981;
+  --color-emerald-glow: #34D399;
+  --color-coral-accent: #FF7A59;
+  --color-sky-highlight: #38BDF8;
+  --color-text-primary: #F3F4F6;
+  --color-text-secondary: #9CA3AF;
+  --color-glass-surface: rgba(16, 185, 129, 0.05);
+  --color-glass-border: rgba(16, 185, 129, 0.1);
+}
+
+@layer base {
+  body {
+    @apply bg-bg-primary text-text-primary font-sans antialiased selection:bg-emerald-accent/30;
+    background-image: 
+      radial-gradient(circle at 0% 0%, rgba(16, 185, 129, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 100% 100%, rgba(56, 189, 248, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(255, 122, 89, 0.05) 0%, transparent 50%);
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-tight;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply backdrop-blur-2xl bg-white/[0.03] border border-white/[0.08] rounded-2xl shadow-2xl;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  }
+
+  .glass-emerald {
+    @apply backdrop-blur-2xl bg-emerald-accent/[0.05] border border-emerald-accent/[0.1] rounded-2xl;
+  }
+
+  .glass-dark {
+    @apply backdrop-blur-3xl bg-black/40 border border-white/5 rounded-2xl;
+  }
+
+  .btn-primary {
+    @apply relative overflow-hidden bg-emerald-accent text-bg-primary font-bold py-3 px-6 rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98] hover:shadow-[0_0_20px_rgba(16,185,129,0.4)];
+  }
+
+  .btn-glass {
+    @apply backdrop-blur-md bg-white/5 border border-white/10 text-text-primary font-medium py-3 px-6 rounded-xl transition-all hover:bg-white/10;
+  }
+
+  .input-glass {
+    @apply w-full bg-white/[0.03] border border-white/[0.08] rounded-xl px-4 py-3 text-text-primary placeholder:text-text-secondary focus:outline-none focus:border-emerald-accent/50 focus:bg-white/[0.05] transition-all;
+  }
+
+  .mesh-gradient {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.4;
+    filter: blur(100px);
+    background: 
+      radial-gradient(at 0% 0%, #10B981 0px, transparent 50%),
+      radial-gradient(at 100% 0%, #38BDF8 0px, transparent 50%),
+      radial-gradient(at 100% 100%, #FF7A59 0px, transparent 50%),
+      radial-gradient(at 0% 100%, #5B5FEF 0px, transparent 50%);
+    animation: mesh-move 20s ease infinite alternate;
+  }
+
+  @keyframes mesh-move {
+    0% { transform: scale(1) translate(0, 0); }
+    100% { transform: scale(1.2) translate(5%, 5%); }
+  }
+
+  .grain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.03;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+
+  .orb-glow {
+    @apply absolute inset-0 rounded-full;
+    background: radial-gradient(circle at center, var(--color-emerald-accent) 0%, transparent 70%);
+    filter: blur(20px);
+    opacity: 0.5;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-white/10 rounded-full hover:bg-white/20 transition-colors;
+}
+
+/* Markdown Styles */
+.markdown-body {
+  @apply text-text-primary leading-relaxed;
+}
+
+.markdown-body h2 {
+  @apply text-xl font-bold mt-8 mb-4 flex items-center gap-2 text-emerald-accent border-b border-white/5 pb-2;
+}
+
+.markdown-body h3 {
+  @apply text-lg font-bold mt-6 mb-3 text-text-primary;
+}
+
+.markdown-body ul {
+  @apply space-y-2 mb-6;
+}
+
+.markdown-body li {
+  @apply flex items-start gap-2 before:content-['•'] before:text-emerald-accent before:font-bold;
+}
+
+.markdown-body strong {
+  @apply text-emerald-glow font-bold;
+}
+
+.markdown-body hr {
+  @apply my-8 border-white/5;
+}
+
+/* Leaflet Light Theme Overrides */
+.leaflet-container {
+  background: #f8f7f4 !important;
+}
+
+.leaflet-bar {
+  border: none !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+.leaflet-bar a {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(8px);
+  color: #1f2937 !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+.leaflet-bar a:hover {
+  background-color: rgba(16, 185, 129, 0.1) !important;
+  color: #10B981 !important;
+}
+
+.leaflet-top {
+  top: 10px !important;
+}
+
+.leaflet-bottom.leaflet-left {
+  bottom: 10px !important;
+}
+
+.leaflet-control-geosearch form {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  border-radius: 12px !important;
+}
+
+.leaflet-control-geosearch form input {
+  color: #1f2937 !important;
+  background: transparent !important;
+}
+
+.leaflet-control-geosearch .results {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  border-radius: 12px !important;
+  color: #1f2937 !important;
+  margin-top: 8px;
+}

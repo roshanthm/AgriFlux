@@ -1,0 +1,7 @@
+{
+  "name": "AI Agronomist System",
+  "description": "An elite AI Agronomist System that provides precise, data-driven, field-ready decisions based on location, crop, and weather data.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
